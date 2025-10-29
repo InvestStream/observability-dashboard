@@ -50,4 +50,4 @@ jobs:
           -e AWS_ROLE_ARN=${{ env.AWS_ROLE_ARN }} \
           -e AWS_REGION=${{ env.AWS_REGION }} \
           -e AWS_WEB_IDENTITY_TOKEN_FILE=${AWS_WEB_IDENTITY_TOKEN_FILE} \
-          opentofu:latest sh -c "tofu init && tofu apply -auto-approve tfplan"
+          opentofu:latest tofu init && tofu apply -auto-approve
