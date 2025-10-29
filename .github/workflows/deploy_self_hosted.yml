@@ -39,7 +39,7 @@ jobs:
         retry-max-attempts: 9
 
     - name: Build Opentofu container
-      run: docker build -f opentofu.Dockerfile -t opentofu:latest .
+      run: docker build -f ${{ env.TF_WORKDIR }}/opentofu.dockerfile -t opentofu:latest .
 
     - name: Run Opentofu to deploy infra
       run: |
