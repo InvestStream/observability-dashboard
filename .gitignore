@@ -70,3 +70,7 @@ web/test-results/*
 
 # local config files
 *.local.*
+
+# terraform
+.terraform/
+.terraform.lock.hcl

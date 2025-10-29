@@ -1,0 +1,53 @@
+name: Deploy Self-Hosted Langfuse
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: ## Allows workflow to be manually triggered
+
+jobs:
+  deploy_infra:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    
+    env:
+      TF_WORKDIR: infra
+      AWS_REGION: ap-southeast-2
+      AWS_ROLE_ARN: arn:aws:iam::983086978598:role/investstream/aws-base/Deploy
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Log in to AWS landing zone ## Account with OIDC provider
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: ${{ env.AWS_REGION }}
+        role-to-assume: arn:aws:iam::196257795898:role/investstream/aws-base/Deploy-sandbox
+        retry-max-attempts: 9
+
+    - name: Log in to AWS target account sandbox
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: ${{ env.AWS_REGION }}
+        role-chaining: true
+        role-to-assume: ${{ env.AWS_ROLE_ARN }}
+        role-session-name: GitHubActions-${{ github.run_id }}
+        retry-max-attempts: 9
+
+    - name: Build Opentofu container
+      run: docker build -f opentofu.Dockerfile -t opentofu:latest .
+
+    - name: Run Opentofu to deploy infra
+      run: |
+        docker run --rm \
+          -v ${{ github.workspace }}/${{ env.TF_WORKDIR }}:/workspace \
+          -w /workspace \
+          -e HOME=/tmp/home \
+          -e AWS_ROLE_ARN=${{ env.AWS_ROLE_ARN }} \
+          -e AWS_REGION=${{ env.AWS_REGION }} \
+          -e AWS_WEB_IDENTITY_TOKEN_FILE=${AWS_WEB_IDENTITY_TOKEN_FILE} \
+          opentofu:latest sh -c "tofu init && tofu apply -auto-approve tfplan"
