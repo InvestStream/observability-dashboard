@@ -11,7 +11,7 @@ resource "aws_ecs_task_definition" "langfuse" {
   memory                   = "16384"
   execution_role_arn       = aws_iam_role.langfuse_execution_role.arn ## To pull images, write logs
   task_role_arn            = aws_iam_role.langfuse_execution_role.arn ## To call AWS services
-  container_definitions    = data.template_file.ecs_task_def.rendered
+  container_definitions    = data.template_file.ecs_task_definition.rendered
 
   ephemeral_storage {
     size_in_gib = 21 ## Value between 21-200GB
