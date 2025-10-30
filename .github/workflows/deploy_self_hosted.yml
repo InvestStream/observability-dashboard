@@ -39,16 +39,17 @@ jobs:
         role-session-name: GitHubActions-${{ github.run_id }}
         retry-max-attempts: 9
 
-    - name: Build Opentofu container
+    - name: Build OpenTofu container
       run: docker build -f ${{ env.TF_WORKDIR }}/opentofu.dockerfile -t opentofu:latest .
 
-    - name: Run Opentofu to deploy infra
+    - name: Run OpenTofu to deploy infra
       run: |
         docker run --rm \
           -v ${{ github.workspace }}/${{ env.TF_WORKDIR }}:/workspace \
           -w /workspace \
           -e HOME=/tmp/home \
-          -e AWS_ROLE_ARN=${{ env.AWS_ROLE_ARN }} \
+          -e AWS_ACCESS_KEY_ID \
+          -e AWS_SECRET_ACCESS_KEY \
+          -e AWS_SESSION_TOKEN \
           -e AWS_REGION=${{ env.AWS_REGION }} \
-          -e AWS_WEB_IDENTITY_TOKEN_FILE=${AWS_WEB_IDENTITY_TOKEN_FILE} \
           opentofu:latest init && apply -auto-approve
