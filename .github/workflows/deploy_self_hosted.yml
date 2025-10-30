@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - initial-infra-deployment
   workflow_dispatch: ## Allows workflow to be manually triggered
 
 jobs:
@@ -50,4 +51,4 @@ jobs:
           -e AWS_ROLE_ARN=${{ env.AWS_ROLE_ARN }} \
           -e AWS_REGION=${{ env.AWS_REGION }} \
           -e AWS_WEB_IDENTITY_TOKEN_FILE=${AWS_WEB_IDENTITY_TOKEN_FILE} \
-          opentofu:latest tofu init && tofu apply -auto-approve
+          opentofu:latest init && apply -auto-approve
