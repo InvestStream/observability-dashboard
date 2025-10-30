@@ -56,6 +56,24 @@
       { "name": "REDIS_TLS_KEY", "value": "${REDIS_TLS_KEY:-/certs/redis.key}" },
       { "name": "EMAIL_FROM_ADDRESS", "value": "${EMAIL_FROM_ADDRESS:-}" },
       { "name": "SMTP_CONNECTION_URL", "value": "${SMTP_CONNECTION_URL:-}" }
+    ],
+    "dependsOn": [
+      {
+        "containerName": "postgres",
+        "condition": "HEALTHY"
+      },
+      {
+        "containerName": "minio",
+        "condition": "HEALTHY"
+      },
+      {
+        "containerName": "redis",
+        "condition": "HEALTHY"
+      },
+      {
+        "containerName": "clickhouse",
+        "condition": "HEALTHY"
+      }
     ]
   },
   {
@@ -125,12 +143,30 @@
       { "name": "LANGFUSE_INIT_USER_EMAIL", "value": "${LANGFUSE_INIT_USER_EMAIL:-}" },
       { "name": "LANGFUSE_INIT_USER_NAME", "value": "${LANGFUSE_INIT_USER_NAME:-}" },
       { "name": "LANGFUSE_INIT_USER_PASSWORD", "value": "${LANGFUSE_INIT_USER_PASSWORD:-}" }
+    ],
+    "dependsOn": [
+      {
+        "containerName": "postgres",
+        "condition": "HEALTHY"
+      },
+      {
+        "containerName": "minio",
+        "condition": "HEALTHY"
+      },
+      {
+        "containerName": "redis",
+        "condition": "HEALTHY"
+      },
+      {
+        "containerName": "clickhouse",
+        "condition": "HEALTHY"
+      }
     ]
   },
   {
     "name": "clickhouse",
     "image": "docker.io/clickhouse/clickhouse-server",
-    "essential": false,
+    "essential": true,
     "portMappings": [
       { "containerPort": 8123, "hostPort": 8123 },
       { "containerPort": 9000, "hostPort": 9000 }
@@ -146,12 +182,22 @@
       "timeout": 5,
       "retries": 10,
       "startPeriod": 1
-    }
+    },
+    "mountPoints": [
+      {
+        "sourceVolume": "langfuse_clickhouse_data",
+        "containerPath": "/var/lib/clickhouse"
+      },
+      {
+        "sourceVolume": "langfuse_clickhouse_logs",
+        "containerPath": "/var/log/clickhouse-server"
+      }
+    ]
   },
   {
     "name": "minio",
     "image": "docker.io/minio/minio",
-    "essential": false,
+    "essential": true,
     "portMappings": [
       { "containerPort": 9000, "hostPort": 9090 },
       { "containerPort": 9001, "hostPort": 9091 }
@@ -166,12 +212,18 @@
       "timeout": 5,
       "retries": 5,
       "startPeriod": 1
-    }
+    },
+    "mountPoints": [
+      {
+        "sourceVolume": "langfuse_minio_data",
+        "containerPath": "/data"
+      }
+    ]
   },
   {
     "name": "redis",
     "image": "docker.io/redis:7",
-    "essential": false,
+    "essential": true,
     "portMappings": [
       { "containerPort": 6379, "hostPort": 6379 }
     ],
@@ -188,7 +240,7 @@
   {
     "name": "postgres",
     "image": "docker.io/postgres:17",
-    "essential": false,
+    "essential": true,
     "portMappings": [
       { "containerPort": 5432, "hostPort": 5432 }
     ],
@@ -204,6 +256,12 @@
       "interval": 3,
       "timeout": 3,
       "retries": 10
-    }
+    },
+    "mountPoints": [
+      {
+        "sourceVolume": "langfuse_postgres_data",
+        "containerPath": "/var/lib/postgresql/data"
+      }
+    ]
   }
 ]

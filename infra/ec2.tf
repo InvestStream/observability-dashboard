@@ -4,7 +4,7 @@ resource "aws_lb" "public_alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.public_alb.id]
-  subnets            = [data.aws_subnets.public.ids]
+  subnets            = data.aws_subnets.public.ids
 }
 
 resource "aws_lb_target_group" "langfuse" {
