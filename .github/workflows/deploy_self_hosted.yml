@@ -52,4 +52,4 @@ jobs:
           -e AWS_SECRET_ACCESS_KEY \
           -e AWS_SESSION_TOKEN \
           -e AWS_REGION=${{ env.AWS_REGION }} \
-          opentofu:latest init && apply -auto-approve
+          opentofu:latest init && opentofu:latest apply -auto-approve
