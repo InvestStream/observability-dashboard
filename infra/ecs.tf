@@ -67,7 +67,7 @@ resource "aws_ecs_service" "langfuse" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.langfuse.arn
-    container_name   = "langfuse"
+    container_name   = "langfuse-web"
     container_port   = 3000
   }
 
