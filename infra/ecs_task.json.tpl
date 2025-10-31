@@ -132,7 +132,7 @@
       { "name": "REDIS_TLS_CERT", "value": "${REDIS_TLS_CERT:-/certs/redis.crt}" },
       { "name": "REDIS_TLS_KEY", "value": "${REDIS_TLS_KEY:-/certs/redis.key}" },
       { "name": "EMAIL_FROM_ADDRESS", "value": "${EMAIL_FROM_ADDRESS:-}" },
-      { "name": "SMTP_CONNECTION_URL", "value": "${SMTP_CONNECTION_URL:-}" }
+      { "name": "SMTP_CONNECTION_URL", "value": "${SMTP_CONNECTION_URL:-}" },
       { "name": "NEXTAUTH_SECRET", "value": "${NEXTAUTH_SECRET:-mysecret}" },
       { "name": "LANGFUSE_INIT_ORG_ID", "value": "${LANGFUSE_INIT_ORG_ID:-}" },
       { "name": "LANGFUSE_INIT_ORG_NAME", "value": "${LANGFUSE_INIT_ORG_NAME:-}" },
@@ -252,7 +252,7 @@
       { "name": "PGTZ", "value": "UTC" }
     ],
     "healthcheck": {
-      "command": ["CMD-SHELL", "pg_isready -U postgres"]
+      "command": ["CMD-SHELL", "pg_isready -U postgres"],
       "interval": 3,
       "timeout": 3,
       "retries": 10
