@@ -87,7 +87,7 @@
       },
       {
         "name": "LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT",
-        "value": "$${LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT:-http://minio:9000}"
+        "value": "$${LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT:-http://minio:9090}"
       },
       {
         "name": "LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE",
@@ -143,7 +143,7 @@
       },
       {
         "name": "LANGFUSE_S3_BATCH_EXPORT_ENDPOINT",
-        "value": "$${LANGFUSE_S3_BATCH_EXPORT_ENDPOINT:-http://minio:9000}"
+        "value": "$${LANGFUSE_S3_BATCH_EXPORT_ENDPOINT:-http://minio:9090}"
       },
       {
         "name": "LANGFUSE_S3_BATCH_EXPORT_EXTERNAL_ENDPOINT",
@@ -313,7 +313,7 @@
       },
       {
         "name": "LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT",
-        "value": "$${LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT:-http://minio:9000}"
+        "value": "$${LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT:-http://minio:9090}"
       },
       {
         "name": "LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE",
@@ -369,7 +369,7 @@
       },
       {
         "name": "LANGFUSE_S3_BATCH_EXPORT_ENDPOINT",
-        "value": "$${LANGFUSE_S3_BATCH_EXPORT_ENDPOINT:-http://minio:9000}"
+        "value": "$${LANGFUSE_S3_BATCH_EXPORT_ENDPOINT:-http://minio:9090}"
       },
       {
         "name": "LANGFUSE_S3_BATCH_EXPORT_EXTERNAL_ENDPOINT",
@@ -544,7 +544,7 @@
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 9000
+        "containerPort": 9090
       },
       {
         "containerPort": 9001
@@ -585,7 +585,8 @@
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 6379
+        "containerPort": 6379,
+        "hostPort": 6379
       }
     ],
     "environment": [
@@ -611,7 +612,8 @@
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 5432
+        "containerPort": 5432,
+        "hostPort": 5432
       }
     ],
     "environment": [

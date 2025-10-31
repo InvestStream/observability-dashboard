@@ -124,11 +124,21 @@ resource "aws_vpc_security_group_egress_rule" "fargate_sg_egress" {
   referenced_security_group_id = sort(data.aws_vpc_endpoint.logs.security_group_ids)[0]
 }
 
-resource "aws_vpc_security_group_ingress_rule" "fargate_sg_ingress" {
+resource "aws_vpc_security_group_ingress_rule" "fargate_sg_ingress_langfuse_web" {
   security_group_id = aws_security_group.fargate.id
-  description       = "Allow inbound traffic from ALB security group"
+  description       = "Allow inbound traffic from ALB security group to Langfuse Wed"
   from_port         = 3000
   to_port           = 3000
+  ip_protocol       = "tcp"
+
+  referenced_security_group_id = aws_security_group.public_alb.id
+}
+
+resource "aws_vpc_security_group_ingress_rule" "fargate_sg_ingress_minio" {
+  security_group_id = aws_security_group.fargate.id
+  description       = "Allow inbound traffic from ALB security group to MinIO"
+  from_port         = 9090
+  to_port           = 9090
   ip_protocol       = "tcp"
 
   referenced_security_group_id = aws_security_group.public_alb.id
