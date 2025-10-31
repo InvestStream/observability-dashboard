@@ -5,8 +5,7 @@
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 3030,
-        "hostPort": 3030
+        "containerPort": 3030
       }
     ],
     "environment": [
@@ -232,8 +231,7 @@
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 3000,
-        "hostPort": 3000
+        "containerPort": 3000
       }
     ],
     "environment": [
@@ -499,12 +497,10 @@
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 8123,
-        "hostPort": 8123
+        "containerPort": 8123
       },
       {
-        "containerPort": 9000,
-        "hostPort": 9000
+        "containerPort": 9000
       }
     ],
     "environment": [
@@ -548,12 +544,10 @@
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 9000,
-        "hostPort": 9090
+        "containerPort": 9000
       },
       {
-        "containerPort": 9001,
-        "hostPort": 9091
+        "containerPort": 9001
       }
     ],
     "environment": [
@@ -591,8 +585,7 @@
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 6379,
-        "hostPort": 6379
+        "containerPort": 6379
       }
     ],
     "environment": [
@@ -618,8 +611,7 @@
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 5432,
-        "hostPort": 5432
+        "containerPort": 5432
       }
     ],
     "environment": [
