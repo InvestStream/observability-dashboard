@@ -11,7 +11,7 @@ resource "aws_ecs_task_definition" "langfuse" {
   memory                   = "16384"
   execution_role_arn       = aws_iam_role.langfuse_execution_role.arn ## To pull images, write logs
   task_role_arn            = aws_iam_role.langfuse_execution_role.arn ## To call AWS services
-  container_definitions    = jsonencode(data.template_file.container_definitions.rendered)
+  container_definitions    = data.template_file.container_definitions.rendered
 
   ## Volumes for ephemeral data storage, referenced in task definition JSON
   volume {
