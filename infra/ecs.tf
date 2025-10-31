@@ -13,39 +13,6 @@ resource "aws_ecs_task_definition" "langfuse" {
   task_role_arn            = aws_iam_role.langfuse_execution_role.arn ## To call AWS services
   container_definitions    = data.template_file.container_definitions.rendered
 
-  ## Volumes for ephemeral data storage, referenced in task definition JSON
-  volume {
-    name = "langfuse_postgres_data"
-    docker_volume_configuration {
-      driver = "local"
-      scope  = "task"
-    }
-  }
-
-  volume {
-    name = "langfuse_clickhouse_data"
-    docker_volume_configuration {
-      driver = "local"
-      scope  = "task"
-    }
-  }
-
-  volume {
-    name = "langfuse_clickhouse_logs"
-    docker_volume_configuration {
-      driver = "local"
-      scope  = "task"
-    }
-  }
-
-  volume {
-    name = "langfuse_minio_data"
-    docker_volume_configuration {
-      driver = "local"
-      scope  = "task"
-    }
-  }
-
   ephemeral_storage {
     size_in_gib = 21 ## Value between 21-200GB
   }

@@ -526,17 +526,7 @@
       "timeout": 5,
       "retries": 10,
       "startPeriod": 1
-    },
-    "mountPoints": [
-      {
-        "sourceVolume": "langfuse_clickhouse_data",
-        "containerPath": "/var/lib/clickhouse"
-      },
-      {
-        "sourceVolume": "langfuse_clickhouse_logs",
-        "containerPath": "/var/log/clickhouse-server"
-      }
-    ]
+    }
   },
   {
     "name": "minio",
@@ -571,13 +561,7 @@
       "timeout": 5,
       "retries": 5,
       "startPeriod": 1
-    },
-    "mountPoints": [
-      {
-        "sourceVolume": "langfuse_minio_data",
-        "containerPath": "/data"
-      }
-    ]
+    }
   },
   {
     "name": "redis",
@@ -646,12 +630,6 @@
       "interval": 15,
       "timeout": 5,
       "retries": 10
-    },
-    "mountPoints": [
-      {
-        "sourceVolume": "langfuse_postgres_data",
-        "containerPath": "/var/lib/postgresql/data"
-      }
-    ]
+    }
   }
 ]
