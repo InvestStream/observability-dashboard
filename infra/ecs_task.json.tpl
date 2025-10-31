@@ -522,7 +522,7 @@
         "CMD-SHELL",
         "wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit 1"
       ],
-      "interval": 5,
+      "interval": 15,
       "timeout": 5,
       "retries": 10,
       "startPeriod": 1
@@ -567,7 +567,7 @@
         "ready",
         "local"
       ],
-      "interval": 1,
+      "interval": 15,
       "timeout": 5,
       "retries": 5,
       "startPeriod": 1
@@ -601,7 +601,7 @@
         "redis-cli",
         "ping"
       ],
-      "interval": 3,
+      "interval": 15,
       "timeout": 10,
       "retries": 10
     }
@@ -643,8 +643,8 @@
         "CMD-SHELL",
         "pg_isready -U postgres"
       ],
-      "interval": 3,
-      "timeout": 3,
+      "interval": 15,
+      "timeout": 5,
       "retries": 10
     },
     "mountPoints": [
